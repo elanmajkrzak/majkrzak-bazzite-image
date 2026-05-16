@@ -14,6 +14,15 @@ FROM ghcr.io/ublue-os/bazzite:stable
 # Fedora base image: quay.io/fedora/fedora-bootc:41
 # CentOS base images: quay.io/centos-bootc/centos-bootc:stream10
 
+COPY build_files/build-hid-tmff2.sh /tmp/build-hid-tmff2.sh
+RUN chmod +x /tmp/build-hid-tmff2.sh && \
+    /tmp/build-hid-tmff2.sh && \
+    rm /tmp/build-hid-tmff2.sh
+
+COPY usr/lib/udev/rules.d/99-hid-tmff2.rules /usr/lib/udev/rules.d/99-hid-tmff2.rules
+COPY usr/lib/modprobe.d/hid-tmff2.conf /usr/lib/modprobe.d/hid-tmff2.conf
+COPY usr/lib/modules-load.d/hid-tmff2.conf /usr/lib/modules-load.d/hid-tmff2.conf
+
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to
 ## make it mutable/writable for users. However, some packages write files to this directory,
@@ -34,7 +43,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh
-    
+   
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
