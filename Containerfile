@@ -19,9 +19,7 @@ RUN chmod +x /tmp/build-hid-tmff2.sh && \
     /tmp/build-hid-tmff2.sh && \
     rm /tmp/build-hid-tmff2.sh
 
-COPY usr/lib/udev/rules.d/99-hid-tmff2.rules /usr/lib/udev/rules.d/99-hid-tmff2.rules
-COPY usr/lib/modprobe.d/hid-tmff2.conf /usr/lib/modprobe.d/hid-tmff2.conf
-COPY usr/lib/modules-load.d/hid-tmff2.conf /usr/lib/modules-load.d/hid-tmff2.conf
+COPY usr/ /usr/
 
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to

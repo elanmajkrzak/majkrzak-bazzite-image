@@ -1,2 +1,3 @@
 # Thrustmaster TS-PC Racer and related wheels - raw HID access for games
-KERNEL=="hidraw*", ATTRS{idVendor}=="044f", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", ATTRS{idVendor}=="044f", ATTRS{idProduct}=="b696",  MODE="0660", TAG+="uaccess"
+SUBSYSTEM=="input", ATTRS{idVendor}=="044f", ATTRS{idProduct}=="b696", MODE="0660", TAG+="uaccess"
